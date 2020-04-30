@@ -1,30 +1,19 @@
 package lab_exercicio5;
 
-public class Publicacao {
+public class Publicacao implements Produto{
 	
 	private String titulo;
 	private Integer codigo;
 	private Integer numeroPaginas;
 	private Float custo;
+	private Float imposto;
 	
 	public Publicacao(String titulo, Integer codigo, Integer numeroPaginas) {
 		
 		this.titulo = titulo;
 		this.codigo = codigo;
 		this.numeroPaginas = numeroPaginas;
-		this.custo = this.calculaCusto();
-		
-	}
 	
-	public Float calculaCusto() {
-		
-		if(this.numeroPaginas <= 200) {
-			this.custo = this.numeroPaginas * 0.2f;
-			return this.custo;
-		} else {
-			this.custo = this.numeroPaginas * 0.085f;
-			return this.custo;
-		}
 	}
 	
 	@Override
@@ -33,8 +22,17 @@ public class Publicacao {
 				this.titulo, this.codigo, this.numeroPaginas, this.custo);	
 	}
 
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
 	public Float getCusto() {
-		return custo;
+		this.calcularCusto();
+		return this.custo;
 	}
 
 	public void setCusto(Float custo) {
@@ -44,6 +42,30 @@ public class Publicacao {
 	public Integer getNumeroPaginas() {
 		return numeroPaginas;
 	}
+
+	@Override
+	public void calcularCusto() {
+		if(this.numeroPaginas <= 200) {
+			this.custo = this.numeroPaginas * 0.2f;
+		} else {
+			this.custo = this.numeroPaginas * 0.085f;
+		}
+	}
+
+
+	@Override
+	public void calcularImposto() {
+		this.custo *= 0.1f;
+	}
 		
+	
+	public Float getImposto() {
+		this.calcularImposto();
+		return this.imposto;
+	}
+	
+	public void setImposto(Float i) {
+		this.imposto = i;
+	}
 
 }
